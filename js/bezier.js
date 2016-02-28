@@ -75,8 +75,9 @@
 			b.firstChild.nodeValue+='ctx.strokeStyle = "'+a.curve.color+'";\n'
 			b.firstChild.nodeValue+='ctx.beginPath();\n'
 			b.firstChild.nodeValue+='ctx.moveTo('+m.p1.x+", "+m.p1.y+");\n"
-			b.firstChild.nodeValue+=m.cp2?"ctx.bezierCurveTo("+m.cp1.x+", "+m.cp1.y+", "+m.cp2.x+", "+m.cp2.y+", "+m.p2.x+", "+m.p2.y+");":"ctx.quadraticCurveTo("+m.cp1.x+", "+m.cp1.y+", "+m.p2.x+", "+m.p2.y+");\n"
-			b.firstChild.nodeValue+"ctx.stroke();"
+			b.firstChild.nodeValue+=m.cp2?"ctx.bezierCurveTo("+m.cp1.x+", "+m.cp1.y+", "+m.cp2.x+", "+m.cp2.y+", "+m.p2.x+", "+m.p2.y+");\n":"ctx.quadraticCurveTo("+m.cp1.x+", "+m.cp1.y+", "+m.p2.x+", "+m.p2.y+");\n"
+			b.firstChild.nodeValue+="ctx.stroke();\n"
+			b.firstChild.nodeValue+="ctx.closePath();\n"
 		}
 	}
 	function p(t){
