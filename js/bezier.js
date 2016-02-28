@@ -14,7 +14,7 @@
 				color:"#0090D2"},
 			cpline:{
 				width:0.5,
-				color:"#ff7a99"},
+				color:"#00ac00"},
 			point:{
 				radius:8,
 				width:2,
