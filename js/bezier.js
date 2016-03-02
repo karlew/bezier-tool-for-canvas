@@ -1,12 +1,13 @@
 (function(){
-	var d,o,b,m,a,g=null,e;
+	var d,o,b,a,g=null,e,
+	m={p1:{x:150,y:250},p2:{x:450,y:250}};
 	function f(q){
-		m={p1:{x:100,y:250},p2:{x:400,y:250}};
+		m={p1:{x:m.p1.x,y:m.p1.y},p2:{x:m.p2.x,y:m.p2.y}};
 		if(q){
-			m.cp1={x:250,y:100}
+			m.cp1={x:300,y:100}
 		}else{
-			m.cp1={x:150,y:100};
-			m.cp2={x:350,y:100}
+			m.cp1={x:200,y:100};
+			m.cp2={x:400,y:100}
 		}
 		a={
 			curve:{
