@@ -7,21 +7,14 @@
 <link rel="stylesheet" type="text/css" href="css/index.css"/>
 </head>
 <body>
-<div style="margin:0 auto;">
+<div style="margin:0 auto;min-width: 960px;">
 	<div class="content">
 		<canvas id="canvas" width="600" height="500" class="bezier">你的浏览器不支持canvas</canvas>
 		<pre id="code">code</pre>
 		<div class="nav">
-			<span style="font-size: 20px;">strokeStyle:</span><input type="color" id="strokeStyle" value="#1572b5" />
-		</div>
-		<div class="nav">
-			<span style="font-size: 20px;">lineWidth:</span><input type="number" id="lineWidth" value="2"  min="0" max="10"/>
-		</div>
-		<div class="nav">
-			<button id="exchange">exchange</button>
+			<button id="button">bezierCurveTo</button>
 			<button id="upload" onclick="document.getElementById('file').click()">upload</button>
 			<input id="file" type='file'  style="display: none;">
-			<button id="button">bezierCurveTo</button>
 		</div>
 		<div id="preview" style="display: none;">
 		    <img id="imghead" src=''>

@@ -1,4 +1,5 @@
 body {
+	font-family:"微软雅黑";
 	font-size: 85%;
 	margin: 10px 15px;
 	color: #333;
@@ -14,10 +15,11 @@ body {
 	float: left;
 }
 #code {
-	min-width: 480px;
+	min-width: 410px;
 	display: block;
 	width: auto;
-	height: 210px;
+	height: 460px;
+	font-family: monospace;
 	font-size: 20px;
 	padding: 20px;
 	margin: 0;
@@ -31,11 +33,12 @@ body {
 }
 .nav{
 	display: block;
-	margin-top: 10px;
+	clear: both;
+	text-align: center;
 }
-#button,#upload,#exchange{
+#button,#upload{
 	padding: 10px 30px;
-	background-color: #1572b5;
+	background-color: #0090D2;
 	color: #fff;
 	border: 0;
 	-webkit-border-radius: 5px;
