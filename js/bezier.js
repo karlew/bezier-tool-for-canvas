@@ -11,10 +11,10 @@
 		a={
 			curve:{
 				width:2,
-				color:"#0090D2"},
+				color:"#1572b5"},
 			cpline:{
-				width:0.5,
-				color:"#00ac00"},
+				width:0.3,
+				color:"#cf4520"},
 			point:{
 				radius:8,
 				width:2,
@@ -71,8 +71,8 @@
 		if(b){
 			b.firstChild.nodeValue='canvas = document.getElementById("canvas");\n'
 			b.firstChild.nodeValue+='ctx = canvas.getContext("2d")\n'
-			b.firstChild.nodeValue+='ctx.lineWidth = '+a.curve.width+';\n'
 			b.firstChild.nodeValue+='ctx.strokeStyle = "'+a.curve.color+'";\n'
+			b.firstChild.nodeValue+='ctx.lineWidth = '+a.curve.width+';\n'
 			b.firstChild.nodeValue+='ctx.beginPath();\n'
 			b.firstChild.nodeValue+='ctx.moveTo('+m.p1.x+", "+m.p1.y+");\n"
 			b.firstChild.nodeValue+=m.cp2?"ctx.bezierCurveTo("+m.cp1.x+", "+m.cp1.y+", "+m.cp2.x+", "+m.cp2.y+", "+m.p2.x+", "+m.p2.y+");\n":"ctx.quadraticCurveTo("+m.cp1.x+", "+m.cp1.y+", "+m.p2.x+", "+m.p2.y+");\n"
@@ -93,7 +93,8 @@
 				return
 			}
 		}
-	}function i(q){
+	}
+	function i(q){
 		if(g){
 			q=h(q);
 			m[g].x+=q.x-e.x;
@@ -139,6 +140,18 @@
 	}
 	document.getElementById('file').onchange=function(){
 		previewImage(this)
+		k()
+	}
+	document.getElementById('exchange').onclick=function(){
+		eval("m.p1.x="+m.p2.x+",m.p1.y="+m.p2.y+",m.p2.x="+m.p1.x+",m.p2.y="+m.p1.y)
+		k()
+	}
+	document.getElementById('strokeStyle').onchange=function(){
+		a.curve.color=document.getElementById('strokeStyle').value
+		k()
+	}
+	document.getElementById('lineWidth').onchange=function(){
+		a.curve.width=document.getElementById('lineWidth').value
 		k()
 	}
 })();
