@@ -14,7 +14,8 @@ body {
 	float: left;
 }
 #code {
-	min-width: 480px;
+	min-width: 500px;
+	max-width: 540px;
 	display: block;
 	width: auto;
 	height: 210px;

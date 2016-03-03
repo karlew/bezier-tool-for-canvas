@@ -148,11 +148,11 @@
 		k()
 	}
 	document.getElementById('strokeStyle').onchange=function(){
-		a.curve.color=document.getElementById('strokeStyle').value
+		a.curve.color=this.value
 		k()
 	}
 	document.getElementById('lineWidth').onchange=function(){
-		a.curve.width=document.getElementById('lineWidth').value
+		a.curve.width=this.value
 		k()
 	}
 })();
