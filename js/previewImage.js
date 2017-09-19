@@ -1,4 +1,4 @@
-//图片上传预览    IE是用了滤镜。
+//图片上传预览
 function previewImage(file)
 {
   var MAXWIDTH  = 600; 
@@ -18,7 +18,7 @@ function previewImage(file)
       reader.onload = function(evt){img.src = evt.target.result;}
       reader.readAsDataURL(file.files[0]);
   }
-  else //兼容IE
+  else //兼容IE9 滤镜
   {
     var sFilter='filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale,src="';
     file.select();

@@ -1,158 +1,157 @@
 (function(){
-	var d,o,b,a,g=null,e,
-	m={p1:{x:150,y:250},p2:{x:450,y:250}};
-	function f(q){
-		m={p1:{x:m.p1.x,y:m.p1.y},p2:{x:m.p2.x,y:m.p2.y}};
-		if(q){
-			m.cp1={x:300,y:100}
-		}else{
-			m.cp1={x:200,y:100};
-			m.cp2={x:400,y:100}
+	var clickPoint=null,sourcePoint,isQuadratic = false,
+	canvas=document.getElementById("canvas"),
+	code=document.getElementById("code"),
+	ctx=canvas.getContext("2d"),
+	point={p1:{x:150,y:250},p2:{x:450,y:250},cp1:{x:300,y:100}},
+	cp2={x:400,y:100},
+	round={
+		curve:{width:2,color:"#1572b5"},
+		cpline:{width:0.5,color:"#cf4520"},
+		point:{
+			radius:10,
+			width:1,
+			color:"#009696",
+			fill:"rgba(0,170,187,0.6)"
 		}
-		a={
-			curve:{
-				width:2,
-				color:"#1572b5"},
-			cpline:{
-				width:0.3,
-				color:"#cf4520"},
-			point:{
-				radius:8,
-				width:2,
-				color:"#cf4520",
-				fill:"rgba(200,200,200,0.3)",
-				arc1:0,
-				arc2:2*Math.PI}
-		};
-		o.lineCap="round";
-		o.lineJoin="round";
-		d.onmousedown=p;
-		d.onmousemove=i;
-		d.onmouseup=d.onmouseout=n;
-		k()
+	};
+
+	init();
+
+	function init(){
+		point={p1:{x:point.p1.x,y:point.p1.y},p2:{x:point.p2.x,y:point.p2.y},cp1:{x:point.cp1.x,y:point.cp1.y}};
+		if(isQuadratic){
+			point.cp2=cp2;
+		}
+		ctx.lineCap="round";
+		ctx.lineJoin="round";
+		canvas.onmousedown=mouseDownFun;
+		canvas.onmousemove=mouseMoveFun;
+		canvas.onmouseup=canvas.onmouseout=mouseUpFun;
+		drawCanvas()
 	}
-	function k(){
-		o.clearRect(0,0,d.width,d.height);
-		r()
-		o.beginPath();
-		o.lineWidth=a.cpline.width;
-		o.strokeStyle=a.cpline.color;
-		o.beginPath();
-		o.moveTo(m.p1.x,m.p1.y);
-		o.lineTo(m.cp1.x,m.cp1.y);
-		if(m.cp2){
-			o.moveTo(m.p2.x,m.p2.y);
-			o.lineTo(m.cp2.x,m.cp2.y)
+	//绘制
+	function drawCanvas(){
+		ctx.clearRect(0,0,canvas.width,canvas.height);
+		drawUploadImg()
+		ctx.beginPath();
+		ctx.lineWidth=round.cpline.width;
+		ctx.strokeStyle=round.cpline.color;
+		ctx.beginPath();
+		ctx.moveTo(point.p1.x,point.p1.y);
+		ctx.lineTo(point.cp1.x,point.cp1.y);
+		if(isQuadratic){
+			ctx.moveTo(point.p2.x,point.p2.y);
+			ctx.lineTo(point.cp2.x,point.cp2.y)
 		}else{
-			o.lineTo(m.p2.x,m.p2.y)
+			ctx.lineTo(point.p2.x,point.p2.y)
 		}
-		o.stroke();
-		o.lineWidth=a.curve.width;
-		o.strokeStyle=a.curve.color;
-		o.beginPath();
-		o.moveTo(m.p1.x,m.p1.y);
-		if(m.cp2){
-			o.bezierCurveTo(m.cp1.x,m.cp1.y,m.cp2.x,m.cp2.y,m.p2.x,m.p2.y)
+		ctx.stroke();
+		ctx.lineWidth=round.curve.width;
+		ctx.strokeStyle=round.curve.color;
+		ctx.beginPath();
+		ctx.moveTo(point.p1.x,point.p1.y);
+		if(isQuadratic){
+			ctx.bezierCurveTo(point.cp1.x,point.cp1.y,point.cp2.x,point.cp2.y,point.p2.x,point.p2.y)
 		}else{
-			o.quadraticCurveTo(m.cp1.x,m.cp1.y,m.p2.x,m.p2.y)
+			ctx.quadraticCurveTo(point.cp1.x,point.cp1.y,point.p2.x,point.p2.y)
 		}
-		o.stroke();
-		for(var q in m){
-			o.lineWidth=a.point.width;
-			o.strokeStyle=a.point.color;
-			o.fillStyle=a.point.fill;
-			o.beginPath();
-			o.arc(m[q].x,m[q].y,a.point.radius,a.point.arc1,a.point.arc2,true);
-			o.fill();
-			o.stroke()
+		ctx.stroke();
+		for(var v in point){
+			ctx.lineWidth=round.point.width;
+			ctx.strokeStyle=round.point.color;
+			ctx.fillStyle=round.point.fill;
+			ctx.beginPath();
+			ctx.arc(point[v].x,point[v].y,round.point.radius,0,2*Math.PI,true);
+			ctx.fill();
+			ctx.stroke()
 		}
-		j()
+		appendText()
 	}
-	function j(){
-		if(b){
-			b.firstChild.nodeValue='canvas = document.getElementById("canvas");\n'
-			b.firstChild.nodeValue+='ctx = canvas.getContext("2d")\n'
-			b.firstChild.nodeValue+='ctx.strokeStyle = "'+a.curve.color+'";\n'
-			b.firstChild.nodeValue+='ctx.lineWidth = '+a.curve.width+';\n'
-			b.firstChild.nodeValue+='ctx.beginPath();\n'
-			b.firstChild.nodeValue+='ctx.moveTo('+m.p1.x+", "+m.p1.y+");\n"
-			b.firstChild.nodeValue+=m.cp2?"ctx.bezierCurveTo("+m.cp1.x+", "+m.cp1.y+", "+m.cp2.x+", "+m.cp2.y+", "+m.p2.x+", "+m.p2.y+");\n":"ctx.quadraticCurveTo("+m.cp1.x+", "+m.cp1.y+", "+m.p2.x+", "+m.p2.y+");\n"
-			b.firstChild.nodeValue+="ctx.stroke();\n"
-			b.firstChild.nodeValue+="ctx.closePath();\n"
+	//插入对应文字到提示框
+	function appendText(){
+		var codeHTML="";
+		if(point.cp2){
+			codeHTML="ctx.bezierCurveTo("+point.cp1.x+", "+point.cp1.y+", "+point.cp2.x+", "+point.cp2.y+", "+point.p2.x+", "+point.p2.y+");\n"
+		}else{
+			codeHTML="ctx.quadraticCurveTo("+point.cp1.x+", "+point.cp1.y+", "+point.p2.x+", "+point.p2.y+");\n"
 		}
+		code.innerHTML='canvas = document.getElementById("canvas");\n';
+		code.innerHTML+='ctx = canvas.getContext("2d")\n';
+		code.innerHTML+='ctx.strokeStyle = "'+round.curve.color+'";\n';
+		code.innerHTML+='ctx.lineWidth = '+round.curve.width+';\n';
+		code.innerHTML+='ctx.beginPath();\n';
+		code.innerHTML+='ctx.moveTo('+point.p1.x+", "+point.p1.y+");\n";
+		code.innerHTML+=codeHTML;
+		code.innerHTML+="ctx.stroke();\n";
+		code.innerHTML+="ctx.closePath();\n";
 	}
-	function p(t){
-		t=h(t);
-		var r,q;
-		for(var s in m){
-			r=m[s].x-t.x;
-			q=m[s].y-t.y;
-			if((r*r)+(q*q)<a.point.radius*a.point.radius){
-				g=s;
-				e=t;
-				d.style.cursor="move";
+	function mouseDownFun(e){
+		e=getPoint(e);
+		var dx,dy;
+		for(var v in point){
+			dx=point[v].x-e.x;
+			dy=point[v].y-e.y;
+			//判断点击区域是否在可见圆内
+			if(Math.pow(dx,2)+Math.pow(dy,2)<Math.pow(round.point.radius,2)){
+				clickPoint=v;
+				sourcePoint=e;
+				canvas.style.cursor="move";
 				return
 			}
 		}
 	}
-	function i(q){
-		if(g){
-			q=h(q);
-			m[g].x+=q.x-e.x;
-			m[g].y+=q.y-e.y;
-			e=q;k()
+	function mouseMoveFun(e){
+		if(clickPoint){
+			e=getPoint(e);
+			point[clickPoint].x+=e.x-sourcePoint.x;
+			point[clickPoint].y+=e.y-sourcePoint.y;
+			sourcePoint=e;
+			drawCanvas()
 		}
 	}
-	function n(q){
-		g=null;
-		d.style.cursor="default";
-		k()
+	function mouseUpFun(e){
+		clickPoint=null;
+		canvas.style.cursor="default";
+		drawCanvas()
 	}
-	function h(q){
-		q=(q?q:window.event);
-		return{x:q.pageX-d.offsetLeft,y:q.pageY-d.offsetTop}
+	function getPoint(e){
+		e=(e?e:window.event);
+		return{x:e.pageX-canvas.offsetLeft,y:e.pageY-canvas.offsetTop}
 	}
-	d=document.getElementById("canvas");
-	b=document.getElementById("code");
-	if(d.getContext){
-		o=d.getContext("2d");
-		f(d.className=="bezier")
-	}
-	var c=document.getElementById("button");
-	c.onclick=function(){
-		delete o;
-		if(d.className=="bezier"){
-			this.innerHTML="quadraticCurveTo";
-			d.className="bezier1";
-			o=d.getContext("2d");
-			f(false)
-		}else{
-			this.innerHTML="bezierCurveTo";
-			d.className="bezier";
-			o=d.getContext("2d");
-			f(true)
-		}
-	}
-	function r(){
+	function drawUploadImg(){
 		var img=document.getElementById("imghead");
 		if(img.src!=''){
-			o.drawImage(img, 0, 0)
+			ctx.drawImage(img, 0, 0)
+		}
+	}
+	
+	document.getElementById("bezierCurveTo").onclick=function(){
+		if(isQuadratic){
+			isQuadratic = false
+			this.innerHTML="bezierCurveTo";
+			oldCP2=point.cp2;
+			init()
+		}else{
+			isQuadratic = true
+			this.innerHTML="quadraticCurveTo";
+			init()
 		}
 	}
 	document.getElementById('file').onchange=function(){
 		previewImage(this)
-		k()
+		drawCanvas()
 	}
 	document.getElementById('exchange').onclick=function(){
-		eval("m.p1.x="+m.p2.x+",m.p1.y="+m.p2.y+",m.p2.x="+m.p1.x+",m.p2.y="+m.p1.y)
-		k()
+		eval("point.p1.x="+point.p2.x+",point.p1.y="+point.p2.y+",point.p2.x="+point.p1.x+",point.p2.y="+point.p1.y)
+		drawCanvas()
 	}
 	document.getElementById('strokeStyle').onchange=function(){
-		a.curve.color=this.value
-		k()
+		round.curve.color=this.value
+		drawCanvas()
 	}
 	document.getElementById('lineWidth').onchange=function(){
-		a.curve.width=this.value
-		k()
+		round.curve.width=this.value
+		drawCanvas()
 	}
 })();

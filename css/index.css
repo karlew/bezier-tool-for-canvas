@@ -1,5 +1,5 @@
 body {
-	font-size: 85%;
+	font-size: 20px;
 	margin: 10px 15px;
 	color: #333;
 	background:#fff;
@@ -15,7 +15,7 @@ body {
 }
 #code {
 	min-width: 500px;
-	max-width: 540px;
+	max-width: 560px;
 	display: block;
 	width: auto;
 	height: 210px;
@@ -23,7 +23,6 @@ body {
 	padding: 20px;
 	margin: 0;
 	color: #333;
-	background-color: #F7F7F7;
 	-webkit-border-radius: 10px;
 	-moz-border-radius: 10px;
 	border-radius: 10px;
@@ -34,7 +33,10 @@ body {
 	display: block;
 	margin-top: 10px;
 }
-#button,#upload,#exchange{
+#file{
+	display: none;
+}
+.nav button{
 	padding: 10px 30px;
 	background-color: #1572b5;
 	color: #fff;
@@ -43,5 +45,9 @@ body {
 	-moz-border-radius: 5px;
 	border-radius: 5px;
 	font-weight: bold;
-	font-size: 1.3em;
+	font-size: 20px;
+	cursor: pointer;
+}
+#preview{
+	display: none;
 }
